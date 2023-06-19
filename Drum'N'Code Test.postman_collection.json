@@ -1,0 +1,593 @@
+{
+	"info": {
+		"_postman_id": "c4b2dd4c-35ef-4b8a-91e7-012500d7aeaf",
+		"name": "Drum'N'Code Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17178297"
+	},
+	"item": [
+		{
+			"name": "Index",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/api/v{{api_version}}/tasks?priority_from=5&search=rerum commodi consequatur",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v{{api_version}}",
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "done",
+							"description": "Available: todo, done",
+							"disabled": true
+						},
+						{
+							"key": "priority_from",
+							"value": "5"
+						},
+						{
+							"key": "priority_to",
+							"value": "7",
+							"disabled": true
+						},
+						{
+							"key": "sort_by",
+							"value": "priority",
+							"description": "Available fields: created_at, completed_at, priority",
+							"disabled": true
+						},
+						{
+							"key": "sort_order",
+							"value": "desc",
+							"description": "Available: asc, desc",
+							"disabled": true
+						},
+						{
+							"key": "search",
+							"value": "rerum commodi consequatur"
+						}
+					]
+				},
+				"description": "## Get a list of tasks with full-text search by title, filtering and sorting records"
+			},
+			"response": []
+		},
+		{
+			"name": "Show",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v{{api_version}}/tasks/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v{{api_version}}",
+						"tasks",
+						"1"
+					]
+				},
+				"description": "## Show task"
+			},
+			"response": []
+		},
+		{
+			"name": "Store",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bareer_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\":\"todo\",\n    \"title\": \"Create with related tasks\",\n    \"subtasks\": [1, 303],\n    \"priority\": 1,\n    \"description\": \"description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v{{api_version}}/tasks",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v{{api_version}}",
+						"tasks"
+					]
+				},
+				"description": "## Protected route. First you need to login and put the bearer token in the headers.\n\n#### An example of creating a simple record without subtasks\n\n``` json\n{\n    \"status\":\"done\",\n    \"title\": \"Completed task\",\n    \"priority\": 1, \n    \"description\": \"description\"\n}\n\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bareer_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"todo\",\n    \"title\": \"Title updated\",\n    \"priority\": 7,\n    \"description\": \"description updated\",\n    \"subtasks\" : [3]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v{{api_version}}/tasks/304",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v{{api_version}}",
+						"tasks",
+						"304"
+					]
+				},
+				"description": "## Update the task"
+			},
+			"response": []
+		},
+		{
+			"name": "Change Status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bareer_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\":\"todo\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v{{api_version}}/tasks/304/change-status",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v{{api_version}}",
+						"tasks",
+						"304",
+						"change-status"
+					]
+				},
+				"description": "## Change status"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bareer_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/v{{api_version}}/tasks/304",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v{{api_version}}",
+						"tasks",
+						"304"
+					]
+				},
+				"description": "## Delete a task"
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(pm.collectionVariables.get(\"host\")+\"/api/v\"+pm.collectionVariables.get(\"api_version\")+\"/csrf-cookie\", function (err, response) {",
+							"",
+							"    pm.cookies.jar().get(pm.collectionVariables.get(\"host\"), 'XSRF-TOKEN', function(error, cookie){",
+							"        pm.collectionVariables.set(\"csrf\", cookie.split('=')[0]);",
+							"    })",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{csrf}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/v{{api_version}}/register?name=User&email=user@gmail.com&password=12345678&password_confirmation=12345678",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v{{api_version}}",
+						"register"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "User"
+						},
+						{
+							"key": "email",
+							"value": "user@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "12345678"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "12345678"
+						}
+					]
+				},
+				"description": "## Create a new user and return the bearer token"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(pm.collectionVariables.get(\"host\")+\"/api/v\"+pm.collectionVariables.get(\"api_version\")+\"/csrf-cookie\", function (err, response) {",
+							"",
+							"    pm.cookies.jar().get(pm.collectionVariables.get(\"host\"), 'XSRF-TOKEN', function(error, cookie){",
+							"        pm.collectionVariables.set(\"csrf\", cookie.split('=')[0]);",
+							"    })",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{csrf}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/v{{api_version}}/login?email=user@gmail.com&password=12345678",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v{{api_version}}",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "user@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "12345678"
+						}
+					]
+				},
+				"description": "## Login a new user and return the bearer token"
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bareer_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "eyJpdiI6IjJxNXgrVkxLdmhwSEd6WWtOREZ6Zmc9PSIsInZhbHVlIjoib0FsSUpMc1NGM3hoeUZ3VjJ4SkJIYmFoaTVjeXdBdy82YUthd0dCOEtlSHZ0WUU3RmIxZ242Tlh3MlZ0Smk0Z25SVmpUV3ptZTg2RllwQ1I0a3FkSDI4ODRDOWxDMFNLM21wVzhxNFE1Vy9UVGhIb0lxWXl1R0NHZGNxWmpVNEoiLCJtYWMiOiJjZGJhM2JhMjJjMDQxNjc5NTA2NGE3ZTFiMDg1NDY1NDU1MGFhODE2M2Q2MzJkZGZiZTZkYzAyODJiNTU2ZGE2IiwidGFnIjoiIn0",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/v{{api_version}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v{{api_version}}",
+						"user"
+					]
+				},
+				"description": "## Get current user"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(pm.collectionVariables.get(\"host\")+\"/api/v\"+pm.collectionVariables.get(\"api_version\")+\"/csrf-cookie\", function (err, response) {",
+							"",
+							"    pm.cookies.jar().get(pm.collectionVariables.get(\"host\"), 'XSRF-TOKEN', function(error, cookie){",
+							"        pm.collectionVariables.set(\"csrf\", cookie.split('=')[0]);",
+							"    })",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bareer_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{csrf}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/v{{api_version}}/logout",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v{{api_version}}",
+						"logout"
+					]
+				},
+				"description": "## Logout and delete all user tokens"
+			},
+			"response": []
+		},
+		{
+			"name": "Initialize CSRF",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/v{{api_version}}/csrf-cookie",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v{{api_version}}",
+						"csrf-cookie"
+					]
+				},
+				"description": "## Set a new CSRF token to cookies"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bareer_token",
+			"value": "1|MzgeAT4L0YXS4UbIDb0jDj2EH5kNgSi6fmrvrEja"
+		},
+		{
+			"key": "csrf",
+			"value": "eyJpdiI6IllDV0dVUjhneVZCdW1RRnZHc3czZkE9PSIsInZhbHVlIjoiMlpLbE5hNFZNZnFWZVZ1ZHVOeWh5QUI5MURQSnpTUkYvYmc4NExLUmVZMngzZjBhUzgwOGFkeHhSeENUa2lFY3VKNThER2lUYTEzZ2FiNU5MaHo1ZUgzSi9ic3Rrc2N6T0VsTExZVy9MaHA5dC9wakZKMmd3SHRSMkhXVFAyaEIiLCJtYWMiOiIwMzVjZTBkODM0MTY1ZjQ1YmE0OTlmZWFjN2E4NWE5M2Y4YjdmMjFkMTMxZjNhYzU3Nzc3MDI5M2UwMzM3NjljIiwidGFnIjoiIn0"
+		},
+		{
+			"key": "host",
+			"value": "http://127.0.0.1"
+		},
+		{
+			"key": "api_version",
+			"value": "1"
+		}
+	]
+}
