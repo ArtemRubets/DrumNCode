@@ -1,0 +1,265 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "DrumNCode Test API documentation",
+        "description": "DrumNCode Test API documentation",
+        "contact": {
+            "email": "artemrubets27@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/v1": {},
+        "/api/v1/tasks/{id}": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Get task information",
+                "description": "Returns task data",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/TaskResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "examples": {
+                                    "With Subtasks": {
+                                        "summary": "With Subtasks",
+                                        "value": {
+                                            "data": {
+                                                "id": 1,
+                                                "status": "todo",
+                                                "title": "Task title",
+                                                "description": "Task description",
+                                                "priority": 5,
+                                                "user": {
+                                                    "id": 1,
+                                                    "name": "Mr. Arvel Emard II",
+                                                    "email": "williamson.noble@example.com"
+                                                },
+                                                "subtasks": [
+                                                    {
+                                                        "id": 2,
+                                                        "status": "done",
+                                                        "title": "Subtask 1",
+                                                        "description": "Task description",
+                                                        "priority": 3,
+                                                        "user": {
+                                                            "id": 1,
+                                                            "name": "Mr. Arvel Emard II",
+                                                            "email": "williamson.noble@example.com"
+                                                        },
+                                                        "subtasks": [],
+                                                        "completed_at": "2023-06-16T06:02:52.000000Z",
+                                                        "created_at": "2023-06-16T06:02:52.000000Z",
+                                                        "updated_at": "2023-06-16T06:02:52.000000Z"
+                                                    },
+                                                    {
+                                                        "id": 3,
+                                                        "status": "todo",
+                                                        "title": "Subtask 2",
+                                                        "description": "Task description",
+                                                        "priority": 2,
+                                                        "user": {
+                                                            "id": 1,
+                                                            "name": "Mr. Arvel Emard II",
+                                                            "email": "williamson.noble@example.com"
+                                                        },
+                                                        "subtasks": [],
+                                                        "completed_at": "2023-06-16T06:02:52.000000Z",
+                                                        "created_at": "2023-06-16T06:02:52.000000Z",
+                                                        "updated_at": "2023-06-16T06:02:52.000000Z"
+                                                    }
+                                                ],
+                                                "completed_at": "2023-06-16T06:02:52.000000Z",
+                                                "created_at": "2023-06-16T06:02:52.000000Z",
+                                                "updated_at": "2023-06-16T06:02:52.000000Z"
+                                            }
+                                        }
+                                    },
+                                    "Without Subtasks": {
+                                        "summary": "Without Subtasks",
+                                        "value": {
+                                            "data": {
+                                                "id": 1,
+                                                "status": "todo",
+                                                "title": "Task title",
+                                                "description": "Task description",
+                                                "priority": 5,
+                                                "user": {
+                                                    "id": 1,
+                                                    "name": "Mr. Arvel Emard II",
+                                                    "email": "williamson.noble@example.com"
+                                                },
+                                                "subtasks": [],
+                                                "completed_at": "2023-06-16T06:02:52.000000Z",
+                                                "created_at": "2023-06-16T06:02:52.000000Z",
+                                                "updated_at": "2023-06-16T06:02:52.000000Z"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "TaskResource": {
+                "title": "TaskResourсe",
+                "description": "Task Resourсe",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "todo",
+                            "done"
+                        ],
+                        "example": "todo"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Task Title"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Task description"
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/UserResource"
+                    },
+                    "subtasks": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "type": "integer",
+                                    "example": 2
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "enum": [
+                                        "todo",
+                                        "done"
+                                    ],
+                                    "example": "done"
+                                },
+                                "title": {
+                                    "type": "string",
+                                    "example": "Subtask 1"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "example": "Subtask 1"
+                                },
+                                "priority": {
+                                    "type": "integer",
+                                    "example": 2
+                                },
+                                "user": {
+                                    "$ref": "#/components/schemas/UserResource"
+                                },
+                                "subtasks": {
+                                    "type": "array",
+                                    "items": {},
+                                    "example": []
+                                },
+                                "completed_at": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "example": "2023-06-16T06:02:52.000000Z"
+                                },
+                                "created_at": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "example": "2023-06-16T06:02:52.000000Z"
+                                },
+                                "updated_at": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "example": "2023-06-16T06:02:52.000000Z"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "completed_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-06-16T06:02:52.000000Z"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-06-16T06:02:52.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-06-16T06:02:52.000000Z"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "TaskResource"
+                }
+            },
+            "UserResource": {
+                "title": "UserResourсe",
+                "description": "User Resourсe",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Prof. Sincere Funk DVM"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "zabernathy@example.net"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UserResource"
+                }
+            }
+        }
+    }
+}
